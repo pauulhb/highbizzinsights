@@ -1,0 +1,458 @@
+<title>HB Insights — Demo Client</title>
+<style>
+  :root {
+    color-scheme: light;
+    --surface-1:      #fcfcfb;
+    --page:           #f9f9f7;
+    --text-primary:   #0b0b0b;
+    --text-secondary: #52514e;
+    --muted:          #898781;
+    --gridline:       #e1e0d9;
+    --baseline:       #c3c2b7;
+    --border:         rgba(11,11,11,0.10);
+    --accent:         #2a78d6;
+    --accent-soft:    rgba(42,120,214,0.16);
+    --accent-track:   rgba(42,120,214,0.30);
+    --good:           #006300;
+    --bad:            #b3261e;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) {
+      color-scheme: dark;
+      --surface-1:      #1a1a19;
+      --page:           #0d0d0d;
+      --text-primary:   #ffffff;
+      --text-secondary: #c3c2b7;
+      --muted:          #898781;
+      --gridline:       #2c2c2a;
+      --baseline:       #383835;
+      --border:         rgba(255,255,255,0.10);
+      --accent:         #3987e5;
+      --accent-soft:    rgba(57,135,229,0.18);
+      --accent-track:   rgba(57,135,229,0.32);
+      --good:           #0ca30c;
+      --bad:            #e66767;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --surface-1:      #1a1a19;
+    --page:           #0d0d0d;
+    --text-primary:   #ffffff;
+    --text-secondary: #c3c2b7;
+    --muted:          #898781;
+    --gridline:       #2c2c2a;
+    --baseline:       #383835;
+    --border:         rgba(255,255,255,0.10);
+    --accent:         #3987e5;
+    --accent-soft:    rgba(57,135,229,0.18);
+    --accent-track:   rgba(57,135,229,0.32);
+    --good:           #0ca30c;
+    --bad:            #e66767;
+  }
+  :root[data-theme="light"] {
+    color-scheme: light;
+    --surface-1:      #fcfcfb;
+    --page:           #f9f9f7;
+    --text-primary:   #0b0b0b;
+    --text-secondary: #52514e;
+    --border:         rgba(11,11,11,0.10);
+    --accent:         #2a78d6;
+    --accent-soft:    rgba(42,120,214,0.16);
+    --accent-track:   rgba(42,120,214,0.30);
+    --good:           #006300;
+    --bad:            #b3261e;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--page);
+    color: var(--text-primary);
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .app { max-width: 960px; margin: 0 auto; padding: 28px 20px 60px; }
+
+  .masthead {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 20px;
+  }
+  .masthead .id { display: flex; flex-direction: column; gap: 4px; }
+  .masthead .eyebrow {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .masthead h1 { margin: 0; font-size: 26px; font-weight: 700; text-wrap: balance; }
+  .masthead .period {
+    font-size: 13px;
+    color: var(--text-secondary);
+    text-align: right;
+  }
+  .demo-flag {
+    display: inline-block;
+    margin-top: 6px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .tabs {
+    display: flex;
+    gap: 4px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  .tab-btn {
+    flex: 0 0 auto;
+    appearance: none;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: var(--text-secondary);
+    font: inherit;
+    font-size: 13.5px;
+    font-weight: 600;
+    padding: 8px 10px 10px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  .tab-btn:hover { color: var(--text-primary); }
+  .tab-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+  .tab-btn[aria-selected="true"] {
+    color: var(--text-primary);
+    border-bottom-color: var(--accent);
+  }
+  .tab-btn .dot {
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--muted);
+    margin-right: 6px;
+    vertical-align: middle;
+  }
+  .tab-btn.connected .dot { background: var(--good); }
+
+  .panel { display: none; }
+  .panel.active { display: block; animation: fade .15s ease; }
+  @media (prefers-reduced-motion: reduce) { .panel.active { animation: none; } }
+  @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+
+  .kpi-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .kpi {
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+  .kpi .label { font-size: 12px; color: var(--text-secondary); margin-bottom: 6px; }
+  .kpi .value { font-size: 22px; font-weight: 700; line-height: 1.1; }
+  .kpi .delta { margin-top: 6px; font-size: 12.5px; font-weight: 600; }
+  .kpi .delta.up { color: var(--good); }
+  .kpi .delta.down { color: var(--bad); }
+  .kpi .delta.flat { color: var(--muted); }
+  .kpi .delta .sub { color: var(--muted); font-weight: 500; }
+
+  .card {
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 20px 20px;
+    margin-bottom: 16px;
+  }
+  .card h2 { margin: 0 0 4px; font-size: 14px; font-weight: 700; }
+  .card .card-sub { margin: 0 0 14px; font-size: 12px; color: var(--muted); }
+
+  .chart-wrap { overflow-x: auto; }
+  .chart-wrap svg { display: block; font-family: inherit; }
+  .legend { display: flex; gap: 16px; margin-bottom: 10px; font-size: 12px; color: var(--text-secondary); }
+  .legend .sw { display: inline-flex; align-items: center; gap: 6px; }
+  .legend .sw i { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
+
+  .summary p { margin: 0; font-size: 14px; line-height: 1.6; color: var(--text-primary); }
+  .summary h2 { display: flex; align-items: center; gap: 6px; }
+
+  .empty-state {
+    background: var(--surface-1);
+    border: 1px dashed var(--border);
+    border-radius: 12px;
+    padding: 40px 24px;
+    text-align: center;
+    color: var(--text-secondary);
+  }
+  .empty-state .glyph { font-size: 22px; margin-bottom: 10px; }
+  .empty-state h2 { margin: 0 0 6px; font-size: 15px; color: var(--text-primary); }
+  .empty-state p { margin: 0; font-size: 13px; max-width: 40ch; margin-inline: auto; }
+
+  footer {
+    margin-top: 28px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--muted);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+</style>
+
+<div class="app">
+  <div class="masthead">
+    <div class="id">
+      <span class="eyebrow">HB Insights</span>
+      <h1 id="clientName">Demo Client</h1>
+      <span class="demo-flag">Template · sample data</span>
+    </div>
+    <div class="period">
+      Reporting month<br>
+      <strong id="reportMonth" style="color:var(--text-primary); font-size:14px;">July 2026</strong>
+    </div>
+  </div>
+
+  <div class="tabs" role="tablist" aria-label="Report sections" id="tabbar"></div>
+  <div id="panels"></div>
+
+  <footer>
+    <span>Data: Coupler.io + manual sheet · updated monthly</span>
+    <span id="genStamp">Generated Aug 2026</span>
+  </footer>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  // ---- sample payload -----------------------------------------------
+  // Shape the monthly routine should populate per client. `connected: false`
+  // sources render the empty state regardless of what's in `data`.
+  var REPORT = {
+    client: "Demo Client",
+    month: "July 2026",
+    tabs: [
+      {
+        id: "gsc", label: "Search Console", connected: false,
+        empty: "Search Console isn't connected in Coupler yet. Once a dataflow exists for this client, clicks, impressions and average position will appear here."
+      },
+      {
+        id: "gads", label: "Google Ads", connected: true,
+        kpis: [
+          { label: "Spend", value: 4820, prefix: "$", current: 4820, previous: 4310, polarity: "neutral" },
+          { label: "Clicks", value: 2140, current: 2140, previous: 1870, polarity: "positive" },
+          { label: "Conversions", value: 96, current: 96, previous: 81, polarity: "positive" },
+          { label: "Avg. CPC", value: 2.25, prefix: "$", current: 2.25, previous: 2.30, polarity: "inverse" }
+        ],
+        chart: { metric: "Spend", unit: "$", current: 4820, previous: 4310 },
+        summary: "Google Ads spend rose 12% month over month while conversions grew faster (+19%), pulling cost per conversion down from $53.20 to $50.21. Clicks and CTR both improved, suggesting the mid-month bid adjustments on the branded and service-line campaigns are paying off — worth sustaining budget at this level into next month."
+      },
+      {
+        id: "meta", label: "Meta Ads", connected: false,
+        empty: "Meta Ads isn't connected in Coupler yet. Reach, spend and conversions will appear here once a dataflow is set up for this client."
+      },
+      {
+        id: "blogs", label: "Blogs published", connected: true,
+        kpis: [
+          { label: "Blogs published", value: 3, current: 3, previous: 2, polarity: "positive" }
+        ],
+        chart: { metric: "Blogs published", unit: "", current: 3, previous: 2 },
+        summary: "Three blog posts went live this month, up from two in June, keeping pace with the quarterly content calendar. Topics skewed toward service pages, which typically compound SEO value over 2-3 months rather than showing an immediate traffic bump."
+      },
+      {
+        id: "social", label: "Organic social growth", connected: true,
+        kpis: [
+          { label: "Instagram followers", value: 4210, current: 4210, previous: 4055, polarity: "positive" },
+          { label: "Facebook followers", value: 2870, current: 2870, previous: 2840, polarity: "positive" },
+          { label: "X / Twitter followers", value: 968, current: 968, previous: 981, polarity: "positive" }
+        ],
+        chart: { metric: "Followers by platform", unit: "", groups: [
+          { label: "Instagram", current: 4210, previous: 4055 },
+          { label: "Facebook", current: 2870, previous: 2840 },
+          { label: "X / Twitter", current: 968, previous: 981 }
+        ]},
+        summary: "Instagram is the clear growth driver, adding 155 followers this month versus low single-digit movement on Facebook and a slight dip on X. Recommend concentrating organic effort on Instagram Reels next month given the momentum."
+      },
+      {
+        id: "linkedin", label: "LinkedIn", connected: false,
+        empty: "LinkedIn isn't connected in Coupler yet. Follower growth, impressions and engagement will appear here once a dataflow is set up for this client."
+      }
+    ]
+  };
+
+  // ---- helpers --------------------------------------------------------
+  function fmt(n, prefix) {
+    prefix = prefix || "";
+    var abs = Math.abs(n);
+    var out;
+    if (abs >= 1000000) out = (n / 1000000).toFixed(1).replace(/\.0$/, "") + "M";
+    else if (abs >= 10000) out = (n / 1000).toFixed(1).replace(/\.0$/, "") + "K";
+    else out = n % 1 !== 0 ? n.toFixed(2) : n.toLocaleString();
+    return prefix + out;
+  }
+
+  function deltaInfo(current, previous, polarity) {
+    if (previous === 0 || previous == null) return { pct: null, dir: "flat" };
+    var pct = ((current - previous) / Math.abs(previous)) * 100;
+    var rising = pct > 0.5, falling = pct < -0.5;
+    var dir = "flat";
+    if (rising) dir = polarity === "inverse" ? "down" : "up";
+    else if (falling) dir = polarity === "inverse" ? "up" : "down";
+    if (polarity === "neutral") dir = rising ? "flat" : falling ? "flat" : "flat";
+    return { pct: pct, dir: dir, rising: rising, falling: falling };
+  }
+
+  function kpiHTML(k) {
+    var d = deltaInfo(k.current, k.previous, k.polarity);
+    var arrow = d.rising ? "▲" : d.falling ? "▼" : "•";
+    var pctTxt = d.pct === null ? "—" : Math.abs(d.pct).toFixed(0) + "%";
+    var cls = k.polarity === "neutral" ? "flat" : d.dir;
+    return (
+      '<div class="kpi">' +
+        '<div class="label">' + k.label + '</div>' +
+        '<div class="value">' + fmt(k.value, k.prefix) + '</div>' +
+        '<div class="delta ' + cls + '">' + arrow + ' ' + pctTxt + ' <span class="sub">vs last month</span></div>' +
+      '</div>'
+    );
+  }
+
+  // Two-bar (this month vs last month) or grouped small-multiple chart,
+  // per dataviz guidance: sequential steps of one hue, not a second hue,
+  // since "last month" vs "this month" is a before/after of the same series.
+  function barChartSVG(spec) {
+    var groups = spec.groups || [{ label: spec.metric, current: spec.current, previous: spec.previous }];
+    var w = Math.max(360, groups.length * 150);
+    var h = 200, padL = 44, padB = 28, padT = 12, padR = 12;
+    var plotW = w - padL - padR, plotH = h - padT - padB;
+    var maxVal = Math.max.apply(null, groups.flatMap(function (g) { return [g.current, g.previous]; }));
+    maxVal = maxVal <= 0 ? 1 : maxVal * 1.15;
+    var groupW = plotW / groups.length;
+    var barW = Math.min(34, groupW / 3.2);
+
+    function y(v) { return padT + plotH - (v / maxVal) * plotH; }
+
+    var gridlines = "";
+    var steps = 4;
+    for (var i = 0; i <= steps; i++) {
+      var gy = padT + (plotH / steps) * i;
+      var val = maxVal - (maxVal / steps) * i;
+      gridlines +=
+        '<line x1="' + padL + '" x2="' + (w - padR) + '" y1="' + gy + '" y2="' + gy + '" stroke="var(--gridline)" stroke-width="1"/>' +
+        '<text x="' + (padL - 8) + '" y="' + (gy + 4) + '" text-anchor="end" font-size="10.5" fill="var(--muted)">' + fmt(Math.round(val), spec.unit === "$" ? "$" : "") + '</text>';
+    }
+
+    var bars = "";
+    groups.forEach(function (g, i) {
+      var cx = padL + groupW * i + groupW / 2;
+      var prevX = cx - barW - 3;
+      var curX = cx + 3;
+      var prevY = y(g.previous), curY = y(g.current);
+      bars +=
+        '<rect x="' + prevX + '" y="' + prevY + '" width="' + barW + '" height="' + (h - padB - prevY) + '" rx="4" fill="var(--accent-track)"/>' +
+        '<rect x="' + curX + '" y="' + curY + '" width="' + barW + '" height="' + (h - padB - curY) + '" rx="4" fill="var(--accent)"/>' +
+        '<text x="' + (curX + barW / 2) + '" y="' + (curY - 6) + '" text-anchor="middle" font-size="11" font-weight="700" fill="var(--text-primary)">' + fmt(g.current, spec.unit === "$" ? "$" : "") + '</text>' +
+        '<text x="' + cx + '" y="' + (h - 8) + '" text-anchor="middle" font-size="11" fill="var(--text-secondary)">' + g.label + '</text>';
+    });
+
+    return (
+      '<svg viewBox="0 0 ' + w + ' ' + h + '" width="100%" height="' + h + '" role="img" aria-label="' + spec.metric + ' this month versus last month">' +
+        '<line x1="' + padL + '" x2="' + padL + '" y1="' + padT + '" y2="' + (h - padB) + '" stroke="var(--baseline)" stroke-width="1"/>' +
+        '<line x1="' + padL + '" x2="' + (w - padR) + '" y1="' + (h - padB) + '" y2="' + (h - padB) + '" stroke="var(--baseline)" stroke-width="1"/>' +
+        gridlines + bars +
+      '</svg>'
+    );
+  }
+
+  function tabPanelHTML(tab) {
+    if (!tab.connected) {
+      return (
+        '<div class="empty-state">' +
+          '<div class="glyph">🔌</div>' +
+          '<h2>Not connected yet</h2>' +
+          '<p>' + tab.empty + '</p>' +
+        '</div>'
+      );
+    }
+    var kpis = '<div class="kpi-row">' + tab.kpis.map(kpiHTML).join("") + '</div>';
+    var legend =
+      '<div class="legend">' +
+        '<span class="sw"><i style="background:var(--accent)"></i>This month</span>' +
+        '<span class="sw"><i style="background:var(--accent-track)"></i>Last month</span>' +
+      '</div>';
+    var chart =
+      '<div class="card">' +
+        '<h2>' + tab.chart.metric + '</h2>' +
+        '<p class="card-sub">This month vs. last month</p>' +
+        legend +
+        '<div class="chart-wrap">' + barChartSVG(tab.chart) + '</div>' +
+      '</div>';
+    var summary =
+      '<div class="card summary">' +
+        '<h2>📝 Summary</h2>' +
+        '<p>' + tab.summary + '</p>' +
+      '</div>';
+    return kpis + chart + summary;
+  }
+
+  // ---- render -----------------------------------------------------------
+  function render(report) {
+    document.getElementById("clientName").textContent = report.client;
+    document.getElementById("reportMonth").textContent = report.month;
+
+    var tabbar = document.getElementById("tabbar");
+    var panels = document.getElementById("panels");
+    tabbar.innerHTML = "";
+    panels.innerHTML = "";
+
+    report.tabs.forEach(function (tab, i) {
+      var btn = document.createElement("button");
+      btn.className = "tab-btn" + (tab.connected ? " connected" : "");
+      btn.setAttribute("role", "tab");
+      btn.setAttribute("aria-selected", i === 0 ? "true" : "false");
+      btn.id = "tabbtn-" + tab.id;
+      btn.setAttribute("aria-controls", "panel-" + tab.id);
+      btn.innerHTML = '<span class="dot"></span>' + tab.label;
+      btn.addEventListener("click", function () { selectTab(tab.id); });
+      tabbar.appendChild(btn);
+
+      var panel = document.createElement("div");
+      panel.className = "panel" + (i === 0 ? " active" : "");
+      panel.id = "panel-" + tab.id;
+      panel.setAttribute("role", "tabpanel");
+      panel.setAttribute("aria-labelledby", "tabbtn-" + tab.id);
+      panel.innerHTML = tabPanelHTML(tab);
+      panels.appendChild(panel);
+    });
+  }
+
+  function selectTab(id) {
+    document.querySelectorAll(".tab-btn").forEach(function (b) {
+      b.setAttribute("aria-selected", b.id === "tabbtn-" + id ? "true" : "false");
+    });
+    document.querySelectorAll(".panel").forEach(function (p) {
+      p.classList.toggle("active", p.id === "panel-" + id);
+    });
+  }
+
+  render(REPORT);
+})();
+</script>
