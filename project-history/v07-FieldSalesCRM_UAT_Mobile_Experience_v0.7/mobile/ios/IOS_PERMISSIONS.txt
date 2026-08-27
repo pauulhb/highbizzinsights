@@ -1,0 +1,6 @@
+Add to ios/Runner/Info.plist:
+
+<key>NSLocationWhenInUseUsageDescription</key>
+<string>Location is used to verify customer visits and pin customer locations during field work.</string>
+
+Continuous background GPS is intentionally NOT required for the current design.

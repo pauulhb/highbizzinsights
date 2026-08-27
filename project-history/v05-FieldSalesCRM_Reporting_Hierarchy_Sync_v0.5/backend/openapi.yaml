@@ -1,0 +1,91 @@
+openapi: 3.0.3
+info:
+  title: Field Sales CRM API
+  version: 0.5.0
+
+paths:
+  /auth/login:
+    post:
+      summary: Authenticate employee
+      responses:
+        "200": {description: Authenticated}
+
+  /employees/me:
+    get:
+      summary: Current employee profile, role, manager and territory
+      responses:
+        "200": {description: Employee profile}
+
+  /employees/team:
+    get:
+      summary: Visible team based on reporting hierarchy
+      responses:
+        "200": {description: Team list}
+
+  /territories:
+    get:
+      summary: Visible state/HQ/city assignments
+      responses:
+        "200": {description: Territory list}
+
+  /customers/{customerId}/timeline:
+    get:
+      summary: Full customer CRM timeline
+      parameters:
+        - in: path
+          name: customerId
+          required: true
+          schema: {type: string}
+      responses:
+        "200": {description: Timeline}
+
+  /customers/{customerId}/locations:
+    get:
+      summary: Doctor/hospital/distributor practice locations
+      responses:
+        "200": {description: Locations}
+    post:
+      summary: Add alternate customer practice location
+      responses:
+        "201": {description: Location created}
+
+  /reports/performance:
+    get:
+      summary: Filtered daily/weekly/monthly/quarterly/yearly report
+      parameters:
+        - in: query
+          name: period
+          schema: {type: string, enum: [daily, weekly, monthly, quarterly, yearly]}
+        - in: query
+          name: state
+          schema: {type: string}
+        - in: query
+          name: hq
+          schema: {type: string}
+        - in: query
+          name: employee_id
+          schema: {type: string}
+      responses:
+        "200": {description: KPI report}
+
+  /reports/export:
+    get:
+      summary: Export filtered report
+      parameters:
+        - in: query
+          name: format
+          schema: {type: string, enum: [csv, pdf]}
+      responses:
+        "200": {description: Export file}
+
+  /sync/batch:
+    post:
+      summary: Idempotent offline sync batch
+      responses:
+        "200": {description: Sync result}
+
+  /audit:
+    get:
+      summary: Audit history visible to authorized manager
+      responses:
+        "200": {description: Audit events}

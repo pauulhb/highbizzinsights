@@ -1,0 +1,88 @@
+name: Build FieldSalesCRM APK
+
+on:
+  push:
+    branches:
+      - '**'
+    paths:
+      - 'mobile/**'
+      - '.github/workflows/build-apk.yml'
+  workflow_dispatch: {}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+
+      - name: Flutter doctor
+        run: flutter doctor -v
+
+      - name: Scaffold Android platform folder
+        working-directory: mobile
+        run: |
+          flutter create --platforms=android \
+            --org com.highbizzinsights.fieldsalescrm \
+            --project-name fieldsalescrm .
+
+      - name: Add required Android permissions
+        working-directory: mobile
+        run: |
+          python3 - <<'EOF'
+          import re
+
+          path = "android/app/src/main/AndroidManifest.xml"
+          with open(path) as f:
+              content = f.read()
+
+          permissions = "\n".join([
+              '    <uses-permission android:name="android.permission.INTERNET"/>',
+              '    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>',
+              '    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>',
+          ])
+
+          if "ACCESS_FINE_LOCATION" not in content:
+              content = re.sub(
+                  r'(<manifest[^>]*>)',
+                  r'\1\n' + permissions,
+                  content,
+                  count=1,
+              )
+              with open(path, "w") as f:
+                  f.write(content)
+              print("Permissions inserted.")
+          else:
+              print("Permissions already present.")
+          EOF
+          cat android/app/src/main/AndroidManifest.xml
+
+      - name: Resolve dependencies
+        working-directory: mobile
+        run: flutter pub get
+
+      - name: Analyze (non-blocking)
+        working-directory: mobile
+        run: flutter analyze || true
+
+      - name: Build release APK
+        working-directory: mobile
+        run: flutter build apk --release
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: FieldSalesCRM-release-apk
+          path: mobile/build/app/outputs/flutter-apk/app-release.apk
+          if-no-files-found: error

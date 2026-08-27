@@ -1,0 +1,8 @@
+Add these permissions to android/app/src/main/AndroidManifest.xml:
+
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+<uses-permission android:name="android.permission.INTERNET" />
+
+For background sync, configure WorkManager in the production build.
+Continuous background GPS is intentionally NOT required for the current design.

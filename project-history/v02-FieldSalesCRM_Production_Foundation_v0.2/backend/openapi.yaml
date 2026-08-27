@@ -1,0 +1,61 @@
+openapi: 3.0.3
+info:
+  title: Field Sales CRM API
+  version: 0.2.0
+paths:
+  /auth/login:
+    post:
+      summary: Employee login / OTP verification
+      responses:
+        "200": {description: Authenticated}
+  /customers:
+    get:
+      summary: Search customers
+      responses:
+        "200": {description: Search results}
+    post:
+      summary: Create first-visit customer with GPS pin
+      responses:
+        "201": {description: Customer created}
+        "409": {description: Possible duplicate customer}
+  /visits/check-in:
+    post:
+      summary: Start GPS-verified visit
+      responses:
+        "201": {description: Visit started}
+  /visits/{visitId}/check-out:
+    post:
+      summary: Complete visit and enforce 15-minute rule
+      parameters:
+        - in: path
+          name: visitId
+          required: true
+          schema: {type: string}
+      responses:
+        "200": {description: Visit completed}
+        "422": {description: Short visit requires reason}
+  /leads:
+    post:
+      summary: Create sales lead
+      responses:
+        "201": {description: Lead created}
+  /samples:
+    post:
+      summary: Record sample issue or feedback
+      responses:
+        "201": {description: Sample recorded}
+  /orders:
+    post:
+      summary: Record order
+      responses:
+        "201": {description: Order recorded}
+  /reports/dwr:
+    get:
+      summary: Daily work report
+      responses:
+        "200": {description: DWR}
+  /reports/performance:
+    get:
+      summary: Weekly/monthly/quarterly/yearly KPI report
+      responses:
+        "200": {description: KPI report}

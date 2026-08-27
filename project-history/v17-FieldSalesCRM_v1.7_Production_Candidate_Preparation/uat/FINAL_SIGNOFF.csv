@@ -1,0 +1,10 @@
+Area,Owner,Required Result,Actual Result,Status,Signoff Date,Comments
+Business UAT,,Approved,,,,
+Security/RBAC,,Passed,,,,
+15-Minute Rule,,Passed,,,,
+Offline Sync,,Passed,,,,
+Report Reconciliation,,Passed,,,,
+Backup/Restore,,Passed,,,,
+Android Candidate,,Passed,,,,
+iOS Candidate,,Passed,,,,
+Management Approval,,Approved,,,,

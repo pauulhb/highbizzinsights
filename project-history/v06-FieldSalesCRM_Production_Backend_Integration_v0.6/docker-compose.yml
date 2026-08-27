@@ -1,0 +1,34 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: field_sales_crm
+      POSTGRES_USER: fieldcrm
+      POSTGRES_PASSWORD: fieldcrm_dev
+    ports:
+      - "5432:5432"
+    volumes:
+      - fieldcrm_pgdata:/var/lib/postgresql/data
+      - ./backend/sql/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
+      - ./backend/sql/seed.sql:/docker-entrypoint-initdb.d/02-seed.sql
+
+  api:
+    image: node:22-alpine
+    working_dir: /app
+    command: sh -c "npm install && npm run dev"
+    volumes:
+      - ./backend:/app
+    environment:
+      PORT: 8080
+      DATABASE_URL: postgresql://fieldcrm:fieldcrm_dev@db:5432/field_sales_crm
+      JWT_SECRET: change-this-in-uat-and-production
+      JWT_EXPIRES_IN: 8h
+      DEFAULT_GEOFENCE_METERS: 200
+      MIN_QUALIFIED_VISIT_SECONDS: 900
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+
+volumes:
+  fieldcrm_pgdata:

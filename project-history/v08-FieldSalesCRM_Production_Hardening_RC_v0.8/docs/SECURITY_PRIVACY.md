@@ -1,0 +1,11 @@
+# Security and Privacy
+- HTTPS only in UAT/Production.
+- Short-lived access tokens and revocable refresh tokens.
+- Secrets outside source control.
+- KAM access limited to assigned accounts; managers limited to reporting tree.
+- Server controls visit timestamps, duration and qualification.
+- Core design uses customer pinning plus visit check-in/check-out GPS; continuous background employee tracking is not required.
+- Geofence exceptions remain auditable.
+- Encrypt database/object storage and define data-retention policy.
+- Audit reassignment, approvals and sensitive changes.
+- Collect professional/business contact data required for CRM operations.

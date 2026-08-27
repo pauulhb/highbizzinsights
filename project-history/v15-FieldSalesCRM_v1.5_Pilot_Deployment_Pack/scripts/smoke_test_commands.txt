@@ -1,0 +1,12 @@
+Suggested smoke tests after UAT deployment:
+
+GET /health
+GET /ready
+POST /v1/auth/login
+GET /v1/customers?q=
+GET /v1/reports/performance?period=daily
+
+Then execute one complete customer flow:
+Create Customer -> Check In -> Check Out -> Timeline -> Report.
+
+Do not use production credentials or production customer data in UAT.

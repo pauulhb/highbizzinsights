@@ -1,0 +1,14 @@
+# v0.8 Release Checklist
+- [ ] Dev/UAT/Production separated
+- [ ] Managed PostgreSQL, HTTPS, secrets and backups configured
+- [ ] Refresh-token rotation/session revocation complete
+- [ ] RBAC and audit tests pass
+- [ ] Android/iOS location permissions tested
+- [ ] Active visit survives app lifecycle
+- [ ] Parallel visit blocked
+- [ ] Offline queue/conflicts tested
+- [ ] Follow-up notifications tested
+- [ ] 14:59 short and 15:00 qualified cases verified
+- [ ] Customer/sample/lead/order/reassignment flows tested
+- [ ] Management reports reconciled to transactions
+- [ ] Final name/logo applied only after branding approval

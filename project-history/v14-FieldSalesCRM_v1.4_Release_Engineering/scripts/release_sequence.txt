@@ -1,0 +1,14 @@
+Release engineering sequence
+
+1. Deploy backend to UAT.
+2. Apply SQL migrations.
+3. Run integration tests.
+4. Build Android UAT APK.
+5. Build iOS UAT/TestFlight package.
+6. Run 10-day UAT.
+7. Fix defects and redeploy.
+8. Re-run tests and reconciliation.
+9. Obtain sign-off.
+10. Apply final branding.
+11. Produce production builds.
+12. Freeze v1.0 production release.

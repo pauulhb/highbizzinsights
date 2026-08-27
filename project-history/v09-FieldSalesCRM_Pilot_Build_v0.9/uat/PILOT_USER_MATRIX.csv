@@ -1,0 +1,6 @@
+User Code,Role,State,HQ,Cities,Test Scope
+KAM001,KAM,Karnataka,Bengaluru,Bengaluru,Customer+Visit+CRM
+KAM002,KAM,Karnataka,Mysuru,Mysuru,Customer+Visit+CRM
+AM001,Area Manager,Karnataka,Bengaluru,Bengaluru|Mysuru,Team Review
+RH001,Regional Head,South,South HQ,South India,Regional Dashboard
+MGMT001,Management,All,Corporate,All,Executive Reporting

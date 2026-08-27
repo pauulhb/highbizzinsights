@@ -1,0 +1,13 @@
+{
+  "version": "1.5.0-pilot.1",
+  "environment": "uat",
+  "api_base_url": "<https://uat-api.example.com/v1>",
+  "database_migration": "v1.5",
+  "min_qualified_visit_seconds": 900,
+  "geofence_meters": 200,
+  "brand": "neutral",
+  "source_commit": "<commit>",
+  "built_at": "<iso8601>",
+  "android_artifact": "<apk/aab>",
+  "ios_artifact": "<testflight-build>"
+}

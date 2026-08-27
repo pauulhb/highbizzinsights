@@ -1,0 +1,27 @@
+{
+  "release": "1.5.0-pilot",
+  "environment": "uat",
+  "brand_mode": "neutral",
+  "mobile": {
+    "android": {
+      "build_type": "apk",
+      "status": "requires signing/build host"
+    },
+    "ios": {
+      "build_type": "testflight",
+      "status": "requires Apple signing/macOS"
+    }
+  },
+  "backend": {
+    "runtime": "node",
+    "database": "postgresql",
+    "https_required": true,
+    "min_qualified_visit_seconds": 900,
+    "default_geofence_meters": 200
+  },
+  "external_services": {
+    "object_storage": "required for attachments",
+    "push_notifications": "optional for initial UAT but recommended",
+    "pdf_renderer": "optional for initial UAT; CSV available"
+  }
+}

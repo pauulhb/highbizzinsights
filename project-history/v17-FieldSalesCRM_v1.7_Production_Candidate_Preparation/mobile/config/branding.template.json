@@ -1,0 +1,10 @@
+{
+  "app_name": "<final name>",
+  "company_name": "<company>",
+  "brand_name": "<brand if required>",
+  "support_email": "<support email>",
+  "privacy_policy_url": "<url>",
+  "primary_logo_asset": "<asset path>",
+  "android_package_id": "<reverse.domain.app>",
+  "ios_bundle_id": "<reverse.domain.app>"
+}

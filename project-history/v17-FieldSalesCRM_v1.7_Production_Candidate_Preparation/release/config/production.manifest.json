@@ -1,0 +1,25 @@
+{
+  "candidate_version": "1.0.0-rc.1",
+  "source_milestone": "1.7",
+  "environment": "production",
+  "brand_status": "pending-final-approval",
+  "qualified_visit_seconds": 900,
+  "geofence_default_meters": 200,
+  "required_services": {
+    "postgresql": "required",
+    "https": "required",
+    "object_storage": "required for attachments",
+    "push_notifications": "recommended",
+    "pdf_renderer": "required if PDF export enabled"
+  },
+  "release_gates": [
+    "UAT signed off",
+    "0 critical defects",
+    "RBAC verified",
+    "offline sync verified",
+    "reports reconciled",
+    "backup restore verified",
+    "Android signing ready",
+    "iOS signing ready"
+  ]
+}

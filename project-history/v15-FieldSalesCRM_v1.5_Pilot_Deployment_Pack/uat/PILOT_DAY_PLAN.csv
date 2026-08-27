@@ -1,0 +1,11 @@
+Day,Primary Focus,KAM Activity,Manager Activity,Acceptance Check
+1,Authentication + First Customer,Create/Pin 3 customers,Verify hierarchy,No unauthorized access
+2,Visit Validation,Complete qualified + short visits,Review short calls,14:59 vs 15:00 correct
+3,Commercial CRM,Samples + Leads + Orders,Review pipeline,Timeline correct
+4,Follow-ups,Create/close follow-ups,Review overdue items,No missed linkage
+5,Offline Mode,Work offline then sync,Review sync results,No duplicates/data loss
+6,Repeat Visits,Search existing customers,Review coverage,Fast repeat workflow
+7,Reassignment,Continue field work,Request/approve reassignment,History preserved
+8,Reporting,Normal activity,Reconcile DWR/KPI,Reports match transactions
+9,Regression,Retest fixes,Retest management issues,Critical defects zero
+10,Sign-off,Final field use,Executive review,Acceptance scorecard complete

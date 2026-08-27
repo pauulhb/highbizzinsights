@@ -1,0 +1,11 @@
+Suggested UAT startup sequence:
+
+1. Provision PostgreSQL.
+2. Apply base schema + v1_candidate.sql.
+3. Configure backend .env with JWT_SECRET and DATABASE_URL.
+4. Start API.
+5. Verify /health.
+6. Run Flutter app with:
+   flutter run --dart-define=API_BASE_URL=https://<uat-domain>/v1
+7. Create UAT users.
+8. Run FINAL_UAT_PLAN.md.

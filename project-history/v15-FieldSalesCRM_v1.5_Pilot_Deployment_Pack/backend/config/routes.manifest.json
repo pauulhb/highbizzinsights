@@ -1,0 +1,164 @@
+{
+  "public": [
+    {
+      "method": "GET",
+      "path": "/health"
+    },
+    {
+      "method": "GET",
+      "path": "/ready"
+    },
+    {
+      "method": "POST",
+      "path": "/v1/auth/login"
+    },
+    {
+      "method": "POST",
+      "path": "/v1/auth/refresh"
+    },
+    {
+      "method": "POST",
+      "path": "/v1/auth/logout"
+    }
+  ],
+  "kam": [
+    {
+      "method": "GET",
+      "path": "/v1/customers"
+    },
+    {
+      "method": "POST",
+      "path": "/v1/customers"
+    },
+    {
+      "method": "GET",
+      "path": "/v1/customers/:id/timeline"
+    },
+    {
+      "method": "GET",
+      "path": "/v1/customers/:id/locations"
+    },
+    {
+      "method": "POST",
+      "path": "/v1/customers/:id/locations"
+    },
+    {
+      "method": "GET",
+      "path": "/v1/visits/active"
+    },
+    {
+      "method": "POST",
+      "path": "/v1/visits/check-in"
+    },
+    {
+      "method": "POST",
+      "path": "/v1/visits/:id/check-out"
+    },
+    {
+      "method": "POST",
+      "path": "/v1/samples"
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/samples/:id"
+    },
+    {
+      "method": "POST",
+      "path": "/v1/leads"
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/leads/:id"
+    },
+    {
+      "method": "POST",
+      "path": "/v1/orders"
+    },
+    {
+      "method": "GET",
+      "path": "/v1/followups"
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/followups/:id"
+    },
+    {
+      "method": "GET",
+      "path": "/v1/reports/performance"
+    },
+    {
+      "method": "POST",
+      "path": "/v1/sync/batch"
+    },
+    {
+      "method": "POST",
+      "path": "/v1/attachments/upload-intent"
+    },
+    {
+      "method": "POST",
+      "path": "/v1/attachments/confirm"
+    }
+  ],
+  "manager": [
+    {
+      "method": "GET",
+      "path": "/v1/manager/states"
+    },
+    {
+      "method": "GET",
+      "path": "/v1/manager/hqs"
+    },
+    {
+      "method": "GET",
+      "path": "/v1/manager/kams"
+    },
+    {
+      "method": "GET",
+      "path": "/v1/manager/kam/:employeeId/summary"
+    },
+    {
+      "method": "GET",
+      "path": "/v1/manager/kam/:employeeId/customers"
+    },
+    {
+      "method": "GET",
+      "path": "/v1/manager/short-visits"
+    },
+    {
+      "method": "POST",
+      "path": "/v1/reassignments"
+    }
+  ],
+  "state_manager_plus": [
+    {
+      "method": "PATCH",
+      "path": "/v1/reassignments/:id/approve"
+    },
+    {
+      "method": "GET",
+      "path": "/v1/territories"
+    },
+    {
+      "method": "POST",
+      "path": "/v1/territories"
+    },
+    {
+      "method": "GET",
+      "path": "/v1/admin/employees"
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/admin/employees/:id"
+    }
+  ],
+  "exports": [
+    {
+      "method": "GET",
+      "path": "/v1/exports/performance.csv"
+    },
+    {
+      "method": "POST",
+      "path": "/v1/pdf/performance"
+    }
+  ]
+}

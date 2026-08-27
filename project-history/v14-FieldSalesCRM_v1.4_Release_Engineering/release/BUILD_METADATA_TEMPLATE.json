@@ -1,0 +1,11 @@
+{
+  "version": "1.4.0",
+  "environment": "uat",
+  "git_commit": "<commit>",
+  "build_date": "<iso8601>",
+  "api_base_url": "<uat-api>",
+  "min_qualified_visit_seconds": 900,
+  "brand_name": "<final-name-or-brand-neutral>",
+  "android_build": "<apk/aab>",
+  "ios_build": "<testflight-build>"
+}

@@ -1,0 +1,22 @@
+PRE-PILOT PREFLIGHT
+
+1. DATABASE_URL resolves.
+2. /health returns version and 900-second rule.
+3. /ready returns ready.
+4. HTTPS certificate valid.
+5. UAT employee hierarchy seeded.
+6. KAM can login.
+7. Manager can login.
+8. KAM cannot access manager endpoint.
+9. New customer can be created.
+10. Duplicate customer warning works.
+11. GPS check-in works.
+12. Second active visit is blocked.
+13. 14:59 is Short.
+14. 15:00 is Qualified.
+15. Sample/Lead/Order flows work.
+16. Offline queue syncs once network returns.
+17. Manager summary reconciles.
+18. CSV export works.
+19. Storage upload intent works if attachment provider enabled.
+20. UAT build version matches deployment manifest.

@@ -1,0 +1,7 @@
+User Code,Role,State,HQ,Assigned Cities,Pilot Responsibility
+KAM001,KAM,Karnataka,Bengaluru,Bengaluru|Tumakuru|Kolar,Primary field-flow tester
+KAM002,KAM,Karnataka,Mysuru,Mysuru|Mandya|Hassan,Offline/repeat-visit tester
+AM001,Area Manager,Karnataka,Bengaluru,Bengaluru|Mysuru,Team dashboard and exception review
+SM001,State Manager,Karnataka,Bengaluru,Karnataka,Reassignment and territory review
+RH001,Regional Head,South,South HQ,South India,Regional analytics
+MGMT001,Management,All,Corporate,All,Executive sign-off

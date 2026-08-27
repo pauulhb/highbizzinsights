@@ -1,0 +1,125 @@
+FIELDNEXUS – MOBILE FIELD SALES CRM
+Version 0.1 Product Blueprint
+
+Purpose
+-------
+A brand-neutral iOS and Android application for field-based KAMs and Sales Executives who visit Doctors, Hospitals and Distributors.
+
+Core customer principle
+-----------------------
+Customer data is created by the KAM during the first physical visit.
+From the second visit onward, the KAM searches and selects the existing customer and records the new interaction against the same customer master.
+
+Core visit rule
+---------------
+A visit must last at least 15 minutes between verified check-in and check-out to count as a Qualified/Productive Visit.
+
+If duration is less than 15 minutes:
+- Save the visit.
+- Mark it Short Visit / Not Qualified.
+- Require a reason.
+- Exclude it from productive-call KPI.
+- Keep it visible in DWR and management review.
+
+Primary mobile navigation
+-------------------------
+HOME | CUSTOMERS | VISITS | LEADS | MORE
+
+KAM journey
+-----------
+Login
+Start Day
+New Customer OR Search Existing Customer
+GPS Check-In
+15-minute live timer
+Meeting report
+Product discussion
+Sample / Sample feedback
+Lead
+Order
+Next action
+GPS Check-Out
+Automatic DWR
+End Day
+
+Customer types
+--------------
+Doctor
+Hospital
+Distributor
+
+First-visit customer fields
+---------------------------
+Type
+Name
+Hospital/Account
+Area
+City
+State
+Contact
+Potential A+/A/B/C
+GPS pin
+Products used
+Competitor information
+Notes
+
+Repeat-visit flow
+-----------------
+Search by name / hospital / distributor / area / city / phone
+Open customer profile
+See last visit, last discussion, pending sample, open lead and follow-up
+Check in
+Complete new visit
+Check out
+
+Management KPIs
+---------------
+Total visits
+Qualified visits
+Short visits
+Qualified visit rate
+Average account time
+Customers met
+New customers
+Doctors / Hospitals / Distributors covered
+Samples given
+Positive / negative sample feedback
+New leads
+Pipeline value
+Orders
+Order value
+Follow-ups
+Territory coverage
+
+Reporting periods
+-----------------
+Daily
+Weekly
+Monthly
+Quarterly
+Yearly
+
+Hierarchy
+---------
+Management
+South / Regional Head
+State / Area Manager
+KAM / Sales Executive
+
+Reporting drill-down
+--------------------
+South India → State → HQ → KAM → Customer → Visit
+
+Production requirements
+-----------------------
+Android and iOS
+Offline-first
+Real GPS
+Role-based security
+Audit trail
+Duplicate detection
+Attachments
+Push notifications
+Map
+Speech-to-text
+Secure cloud sync

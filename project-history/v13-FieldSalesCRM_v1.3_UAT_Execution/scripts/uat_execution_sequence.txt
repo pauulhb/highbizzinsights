@@ -1,0 +1,15 @@
+UAT execution sequence
+
+1. Provision UAT API + database.
+2. Apply migrations and seed hierarchy.
+3. Configure Android/iOS UAT builds.
+4. Run backend integration tests.
+5. Assign UAT user accounts.
+6. Execute KAM pilot script.
+7. Execute Manager pilot script.
+8. Execute Management pilot script.
+9. Log defects and triage daily.
+10. Reconcile reports.
+11. Run regression.
+12. Complete UAT acceptance scorecard.
+13. Obtain sign-off.

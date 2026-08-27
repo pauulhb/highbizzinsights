@@ -1,0 +1,11 @@
+Area,Weight,Pass Criteria,Result,Score,Comments
+Authentication,10,No unauthorized access,,,
+Visit Validation,20,14:59 Short and 15:00 Qualified,,,
+Offline Sync,15,No data loss or duplicate records,,,
+CRM Workflow,15,Samples Leads Orders Follow-ups linked correctly,,,
+Reporting,15,DWR and management reports reconcile,,,
+Hierarchy/RBAC,10,Visibility follows reporting tree,,,
+GPS/Geofence,5,Check-in/out and exceptions captured,,,
+Usability,5,KAM can complete routine repeat visit quickly,,,
+Stability,5,No critical crash/blocker,,,
+TOTAL,100,,,,

@@ -1,0 +1,16 @@
+PRODUCTION CANDIDATE SEQUENCE
+
+1. Confirm UAT sign-off.
+2. Freeze database/API/report formulas.
+3. Apply final branding.
+4. Configure production secrets/services.
+5. Run production DB preflight checks.
+6. Deploy backend.
+7. Verify health/readiness.
+8. Build signed Android candidate.
+9. Build signed iOS candidate.
+10. Execute smoke tests.
+11. Review monitoring.
+12. Obtain final management approval.
+13. Release controlled user cohort.
+14. Expand rollout only after stability review.

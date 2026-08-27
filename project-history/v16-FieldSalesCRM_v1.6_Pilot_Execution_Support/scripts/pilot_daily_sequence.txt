@@ -1,0 +1,10 @@
+Daily pilot operating sequence
+
+08:30 Check backend/database readiness
+08:45 Review defects and sync backlog
+09:00 Field users begin work
+13:00 Midday blocker review
+18:30 Collect KAM scorecards
+19:00 Review management exceptions
+19:30 Report reconciliation
+20:00 Defect triage and next-day decision
