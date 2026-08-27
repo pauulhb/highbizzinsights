@@ -12,6 +12,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -86,3 +88,16 @@ jobs:
           name: FieldSalesCRM-release-apk
           path: mobile/build/app/outputs/flutter-apk/app-release.apk
           if-no-files-found: error
+
+      - name: Publish APK as a GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: build-${{ github.run_number }}
+          name: "FieldSalesCRM build ${{ github.run_number }}"
+          prerelease: true
+          files: mobile/build/app/outputs/flutter-apk/app-release.apk
+          body: |
+            Automated build from commit ${{ github.sha }} on branch `${{ github.ref_name }}`.
+            Download `app-release.apk` below and install it on an Android device
+            (you'll need to allow installs from unknown sources — this is a
+            debug-signed release build, not signed for the Play Store).
