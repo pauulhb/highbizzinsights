@@ -155,6 +155,12 @@ class LocalDatabase {
     return rows.map(CommercialAction.fromMap).toList();
   }
 
+  Future<List<CommercialAction>> allCommercialActions() async {
+    final db = await database;
+    final rows = await db.query('commercial_actions', orderBy: 'created_at DESC');
+    return rows.map(CommercialAction.fromMap).toList();
+  }
+
   // Sync queue
   Future<void> enqueueSync(String entityType, String entityId) async {
     final db = await database;

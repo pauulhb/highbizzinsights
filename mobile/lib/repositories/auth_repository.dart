@@ -38,6 +38,11 @@ final List<AppUser> demoDirectory = [
       name: 'Admin User',
       email: 'admin@fieldsalescrm.demo',
       role: UserRole.admin),
+  AppUser(
+      id: 'u-mfr-1',
+      name: 'Manufacturer HQ',
+      email: 'manufacturer@fieldsalescrm.demo',
+      role: UserRole.manufacturer),
 ];
 
 class AuthRepository {

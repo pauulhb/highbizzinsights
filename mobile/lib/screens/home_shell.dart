@@ -5,6 +5,7 @@ import '../services/app_state.dart';
 import 'customer_search_screen.dart';
 import 'dashboard_screen.dart';
 import 'manager_dashboard_screen.dart';
+import 'manufacturer_dashboard_screen.dart';
 import 'profile_screen.dart';
 import 'reports_screen.dart';
 
@@ -20,19 +21,29 @@ class _HomeShellState extends State<HomeShell> {
 
   @override
   Widget build(BuildContext context) {
-    final canViewHierarchy = context.watch<AppState>().canViewHierarchy;
+    final appState = context.watch<AppState>();
+    final isManufacturer = appState.isManufacturer;
+    final canViewHierarchy = appState.canViewHierarchy;
 
     final tabs = <_Tab>[
-      const _Tab(
-        label: 'Dashboard',
-        icon: Icons.dashboard_outlined,
-        screen: DashboardScreen(),
-      ),
-      const _Tab(
-        label: 'Customers',
-        icon: Icons.people_outline,
-        screen: CustomerSearchScreen(),
-      ),
+      if (isManufacturer)
+        const _Tab(
+          label: 'Console',
+          icon: Icons.factory_outlined,
+          screen: ManufacturerDashboardScreen(),
+        )
+      else
+        const _Tab(
+          label: 'Dashboard',
+          icon: Icons.dashboard_outlined,
+          screen: DashboardScreen(),
+        ),
+      if (!isManufacturer)
+        const _Tab(
+          label: 'Customers',
+          icon: Icons.people_outline,
+          screen: CustomerSearchScreen(),
+        ),
       const _Tab(
         label: 'Reports',
         icon: Icons.bar_chart_outlined,

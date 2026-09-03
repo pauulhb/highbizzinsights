@@ -1,6 +1,14 @@
 enum CustomerType { doctor, hospital, distributor }
 
-enum UserRole { kam, areaManager, stateManager, regionalHead, management, admin }
+enum UserRole {
+  kam,
+  areaManager,
+  stateManager,
+  regionalHead,
+  management,
+  admin,
+  manufacturer,
+}
 
 enum CommercialActionType { sample, feedback, lead, order, followUp }
 
@@ -36,6 +44,8 @@ String userRoleLabel(UserRole r) {
       return 'Management';
     case UserRole.admin:
       return 'Admin';
+    case UserRole.manufacturer:
+      return 'Manufacturer';
   }
 }
 

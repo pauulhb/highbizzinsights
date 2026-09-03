@@ -28,6 +28,10 @@ class AppState extends ChangeNotifier {
     notifyListeners();
   }
 
+  bool get isManufacturer => currentUser?.role == UserRole.manufacturer;
+
   bool get canViewHierarchy =>
-      currentUser != null && currentUser!.role != UserRole.kam;
+      currentUser != null &&
+      currentUser!.role != UserRole.kam &&
+      currentUser!.role != UserRole.manufacturer;
 }

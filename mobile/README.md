@@ -35,7 +35,9 @@ flutter run
 Demo accounts (any password) are listed on the login screen, one per role
 in the hierarchy (KAM, Area Manager, State Manager, Regional Head,
 Management, Admin) so the manager drill-down can be tried without a real
-backend.
+backend, plus a `manufacturer@fieldsalescrm.demo` account that opens a
+back-office style console (commercial pipeline totals, field network
+coverage, recent activity) instead of the field visit workflow.
 
 ## Building an APK
 
